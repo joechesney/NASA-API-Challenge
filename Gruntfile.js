@@ -3,7 +3,7 @@ module.exports = function(grunt){
     jshint: {
       files: ['scripts/**/*.js'],
       options: {
-        predef: ['document', 'console', '$', 'alert'],
+        predef: ['document', 'console', 'alert'],
         esnext: true,
         globalstrict: true,
         globals: {},
@@ -25,7 +25,7 @@ module.exports = function(grunt){
       sass: {
         files: ['sass/**/*.scss'],
         tasks: ['sass']
-      }
+      },
       hbs: {
         files: ['templates/**/*.hbs']
       }
@@ -35,5 +35,5 @@ module.exports = function(grunt){
     }
   });
   require('matchdep').filter('grunt-*').forEach(grunt.loadNpmTasks);
-  grunt.registerTask('default', ['jshint', 'sass', 'browserify', 'watch']);
+  grunt.registerTask("default", ['jshint', 'sass', 'browserify', 'watch']);
 }
