@@ -25,21 +25,39 @@ const getNasaData = (key) => {
   });
 };
 
-const displayHazardous = (data => {
-  console.log('data: ', data);
-  let days = Object.keys(data.near_earth_objects);
-  console.log('data.near_earth_objects: ', days);
-  days.forEach(day=>{
-    console.log('rocks: ',data.near_earth_objects[day]);
-    console.log('','');
+const getHazardousRocks = (data => {
+  return new Promise((resolve, reject)=>{
+    let hazardousAsteroids = [];
+    console.log('data: ', data);
+    let days = Object.keys(data.near_earth_objects);
+    // console.log('data.near_earth_objects: ', days);
+    days.forEach(day=>{
+      // console.log('rocks: ',data.near_earth_objects[day]);
+      data.near_earth_objects[day].forEach(rock => {
+        if(rock.is_potentially_hazardous_asteroid === true){
+          // console.log('hazardous asteroid name', rock.name);
+          hazardousAsteroids.push(rock.name);
+        }
+        // console.log('rock',rock.is_potentially_hazardous_asteroid);
+        // console.log('rock: ',data.near_earth_objects[day][rock]);
+      });
+    });
+    resolve(hazardousAsteroids);
   });
 });
+
+const printAsteroids = (hazardousRocks) =>{
+  console.log("printer", hazardousRocks);
+};
 
 getApiKey()
 .then(key=>{
   getNasaData(key)
-.then( (data) =>{
-    displayHazardous(data);
+.then( (allData) =>{
+  getHazardousRocks(allData)
+.then( (rocks)=>{
+  printAsteroids(rocks);
+    });
   });
 });
 
