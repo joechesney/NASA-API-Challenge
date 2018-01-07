@@ -15,7 +15,7 @@ const getApiKey = (file) => {
 
 const getNasaData = (key) => {
   return new Promise((resolve, reject)=>{
-    console.log(key);
+    // console.log(key);
     $.ajax({
       // url: `https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-13&api_key=${key.apiKey}`
       url: 'sampledata.json'
@@ -48,7 +48,22 @@ const getHazardousRocks = (data => {
 
 const printAsteroids = (hazardousRocks) =>{
   console.log("printer", hazardousRocks);
+  hazardousRocks.forEach((rock)=>{
+    $('#output').append(`<h2>FUCK OFF ${rock}!</h2><p>- EVERYONE</p><hr>`);
+  });
 };
+
+const testFOAAS = ()=>{
+  
+  $.ajax({
+    url: "http://foaas.com/off/Joe/Noone?shoutcloud&i18n=en"
+  }).done(fuckoff => {
+    console.log('fuckoff: ',fuckoff);
+    $('#output').html(fuckoff);
+  });
+};
+
+// testFOAAS();
 
 getApiKey()
 .then(key=>{
@@ -61,5 +76,8 @@ getApiKey()
   });
 });
 
+
+
+
+
 // https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY
-//9DjDuSoLfwwxjxHX67Nq14pcCLMnypyQEnt6cEBr
